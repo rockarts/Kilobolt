@@ -4,9 +4,9 @@ public class Robot {
  
 	final int JUMPSPEED = -15;
 	final int MOVESPEED = 5;
-	final int GROUND = 382;
+	final int GROUND = 460;
 	
-	private int centerX = 100;
+	private int centerX = 1;
 	private int centerY = GROUND;
 		
 	private boolean jumped = false;
@@ -40,8 +40,8 @@ public class Robot {
 		}
 		
 		if(speedX > 0 && centerX > 200) {
-			bg1.setSpeedX(-MOVESPEED);
-			bg2.setSpeedX(-MOVESPEED);
+			bg1.setSpeedX(-MOVESPEED/5);
+			bg2.setSpeedX(-MOVESPEED/5);
 		}
 		
 		// Updates Y Position	
