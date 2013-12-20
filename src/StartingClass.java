@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -17,7 +20,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			characterDown, characterJumped, background, heliboy, heliboy2,
 			heliboy3, heliboy4, heliboy5;
 
-	public static Image tiledirt, tileocean;
+	public static Image tilegrassTop, tilegrassBot, tilegrassLeft, tilegrassRight, tiledirt;
 
 	private Graphics second;
 	private URL base;
@@ -59,7 +62,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		background = getImage(base, "data/background.png");
 
 		tiledirt = getImage(base, "data/tiledirt.png");
-		tileocean = getImage(base, "data/tileocean.png");
+        tilegrassTop = getImage(base, "data/tilegrasstop.png");
+        tilegrassBot = getImage(base, "data/tilegrassbot.png");
+        tilegrassLeft = getImage(base, "data/tilegrassleft.png");
+        tilegrassRight = getImage(base, "data/tilegrassright.png");
 
 		anim = new Animation();
 		anim.addFrame(character, 1250);
@@ -86,18 +92,12 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		bg2 = new Background(2160, 0);
 
 		// Initialize Tiles
-		for (int i = 0; i < 200; i++) {
-			for (int j = 0; j < 12; j++) {
-				if (j == 11) {
-					Tile t = new Tile(i, j, 2);
-					tilearray.add(t);
-				}
-				if (j == 10) {
-					Tile t = new Tile(i, j, 1);
-					tilearray.add(t);
-				}
-			}
-		}
+        try {
+            loadMap("data/map1.txt");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 		hb = new Heliboy(340, 360);
 		hb2 = new Heliboy(700, 360);
@@ -106,6 +106,43 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		Thread thread = new Thread(this);
 		thread.start();
+	}
+
+	private void loadMap(String filename) throws IOException {
+		ArrayList lines = new ArrayList();
+		int width = 0;
+		int height = 0;
+		
+		BufferedReader reader = new BufferedReader(new FileReader(filename));
+		while(true){
+			String line = reader.readLine();
+			//no more lines to read
+			if(line == null) {
+				reader.close();
+				break;
+			}
+			
+			if(!line.startsWith("!")) {
+				lines.add(line);
+				width = Math.max(width, line.length());
+			}
+		}
+		height = lines.size();
+		
+		for (int j = 0; j < 12; j++) {
+            String line = (String) lines.get(j);
+            for (int i = 0; i < width; i++) {
+                System.out.println(i + "is i ");
+
+                if (i < line.length()) {
+                    char ch = line.charAt(i);
+                    Tile t = new Tile(i, j, Character.getNumericValue(ch));
+                    tilearray.add(t);
+                }
+
+            }
+        }
+		
 	}
 
 	@Override

@@ -8,15 +8,22 @@ public class Tile {
 	
 	public Tile(int x, int y, int typeInt)	{
 		tileX = x * 40;
-		tileY = y * 40;
-		
-		type = typeInt;
-		
-		if (type == 1) {
-            tileImage = StartingClass.tileocean;
-        } else if (type == 2) {
+        tileY = y * 40;
 
+        type = typeInt;
+
+        if (type == 5) {
             tileImage = StartingClass.tiledirt;
+        } else if (type == 8) {
+            tileImage = StartingClass.tilegrassTop;
+        } else if (type == 4) {
+            tileImage = StartingClass.tilegrassLeft;
+
+        } else if (type == 6) {
+            tileImage = StartingClass.tilegrassRight;
+
+        } else if (type == 2) {
+            tileImage = StartingClass.tilegrassBot;
         }
 	}
 	
