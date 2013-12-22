@@ -47,11 +47,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		// Image Setups
 		character = getImage(base, "data/piggtailgirlsmall.png");
-		//character2 = getImage(base, "data/character2.png");
-		//character3 = getImage(base, "data/character3.png");
+		character2 = getImage(base, "data/piggtailgirlsmall.png");
+		character3 = getImage(base, "data/piggtailgirlsmall.png");
 
 		characterDown = getImage(base, "data/down.png");
-		characterJumped = getImage(base, "data/jumped.png");
+		characterJumped = getImage(base, "data/piggtailgirlsmall.png");
 
 		heliboy = getImage(base, "data/heliboy.png");
 		heliboy2 = getImage(base, "data/heliboy2.png");
@@ -230,6 +230,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			g.fillRect(p.getX(), p.getY(), 10, 5);
 		}
 
+		//Debug collision detection
+		g.drawRect((int)robot.rect.getX(), (int)robot.rect.getY(), (int)robot.rect.getWidth(), (int)robot.rect.getHeight());
+		g.drawRect((int)robot.rect2.getX(), (int)robot.rect2.getY(), (int)robot.rect2.getWidth(), (int)robot.rect2.getHeight());
+				
 		g.drawImage(currentSprite, robot.getCenterX() - 61,
 				robot.getCenterY() - 63, this);
 		/*g.drawImage(hanim.getImage(), hb.getCenterX() - 48,

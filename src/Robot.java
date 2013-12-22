@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.util.ArrayList;
  
 public class Robot {
@@ -19,6 +20,9 @@ public class Robot {
  
 	private int speedX = 0;
 	private int speedY = 0;
+	
+	public static Rectangle rect = new Rectangle(0, 0, 0, 0);
+	public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
 	
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
  
@@ -56,6 +60,9 @@ public class Robot {
 		if (centerX + speedX <= 60) {
 			centerX = 61;
 		}
+		
+		rect.setRect(centerX - 34, centerY - 63	, 68, 63);
+		rect2.setRect(rect.getX(), rect.getY() + 63, 68, 64);
 	}
  
 	public void moveRight() {
