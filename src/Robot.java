@@ -21,8 +21,12 @@ public class Robot {
 	private int speedX = 0;
 	private int speedY = 0;
 	
+	//Vertical
 	public static Rectangle rect = new Rectangle(0, 0, 0, 0);
 	public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
+	//Hands
+	public static Rectangle rect3 = new Rectangle(0, 0, 0, 0);
+	public static Rectangle rect4 = new Rectangle(0, 0, 0, 0);
 	
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
  
@@ -63,6 +67,9 @@ public class Robot {
 		
 		rect.setRect(centerX - 34, centerY - 63	, 68, 63);
 		rect2.setRect(rect.getX(), rect.getY() + 63, 68, 64);
+		
+		rect3.setRect(rect.getX() - 26, rect.getY()+32, 26, 20);
+		rect4.setRect(rect.getX() + 68, rect.getY()+32, 26, 20);
 	}
  
 	public void moveRight() {
