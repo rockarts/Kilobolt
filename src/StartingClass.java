@@ -50,7 +50,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		character2 = getImage(base, "data/piggtailgirlsmall.png");
 		character3 = getImage(base, "data/piggtailgirlsmall.png");
 
-		characterDown = getImage(base, "data/down.png");
+		//characterDown = getImage(base, "data/down.png");
 		characterJumped = getImage(base, "data/piggtailgirlsmall.png");
 
 		heliboy = getImage(base, "data/heliboy.png");
@@ -270,11 +270,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_DOWN:
-			currentSprite = characterDown;
-			if (robot.isJumped() == false) {
-				robot.setDucked(true);
-				robot.setSpeedX(0);
-			}
+			//currentSprite = characterDown;
+			//if (robot.isJumped() == false) {
+			//	robot.setDucked(true);
+			//	robot.setSpeedX(0);
+			//}
 			break;
 
 		case KeyEvent.VK_LEFT:
