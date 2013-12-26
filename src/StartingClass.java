@@ -1,5 +1,6 @@
 import java.applet.Applet;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,15 +21,21 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			characterDown, characterJumped, background, heliboy, heliboy2,
 			heliboy3, heliboy4, heliboy5, lifeHeart;
 
-	public static Image tilegrassTop, tilegrassBot, tilegrassLeft, tilegrassRight, tiledirt;
+	public static Image tilegrassTop, tilegrassBot, tilegrassLeft,
+			tilegrassRight, tiledirt;
 
 	private Graphics second;
 	private URL base;
 	private static Background bg1, bg2;
-	private static Heliboy hb, hb2;
+	public static Heliboy hb, hb2;
 	private Animation anim, hanim;
 
+	public static int score = 0;
+	private Font font = new Font(null, Font.BOLD, 30);
+
 	private ArrayList<Tile> tilearray = new ArrayList<Tile>();
+
+	private Music music = new Music();
 
 	@Override
 	public void init() {
@@ -38,7 +45,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		setFocusable(true);
 		addKeyListener(this);
 		Frame frame = (Frame) this.getParent().getParent();
-		frame.setTitle("Q-Bot Alpha");
+		frame.setTitle("PiggtailGirl");
+
+		music.startBGMusic();
+
 		try {
 			base = getDocumentBase();
 		} catch (Exception e) {
@@ -49,10 +59,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		character = getImage(base, "data/piggtailgirlsmall.png");
 		character2 = getImage(base, "data/piggtailgirlsmall.png");
 		character3 = getImage(base, "data/piggtailgirlsmall.png");
-		
+
 		lifeHeart = getImage(base, "data/heart.png");
 
-		//characterDown = getImage(base, "data/down.png");
+		// characterDown = getImage(base, "data/down.png");
 		characterJumped = getImage(base, "data/piggtailgirlsmall.png");
 
 		heliboy = getImage(base, "data/heliboy.png");
@@ -64,16 +74,16 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		background = getImage(base, "data/background.png");
 
 		tiledirt = getImage(base, "data/tiledirt.png");
-        tilegrassTop = getImage(base, "data/tilegrasstop.png");
-        tilegrassBot = getImage(base, "data/tilegrassbot.png");
-        tilegrassLeft = getImage(base, "data/tilegrassleft.png");
-        tilegrassRight = getImage(base, "data/tilegrassright.png");
+		tilegrassTop = getImage(base, "data/tilegrasstop.png");
+		tilegrassBot = getImage(base, "data/tilegrassbot.png");
+		tilegrassLeft = getImage(base, "data/tilegrassleft.png");
+		tilegrassRight = getImage(base, "data/tilegrassright.png");
 
 		anim = new Animation();
 		anim.addFrame(character, 1250);
-		//anim.addFrame(character2, 50);
-		//anim.addFrame(character3, 50);
-		//anim.addFrame(character2, 50);
+		// anim.addFrame(character2, 50);
+		// anim.addFrame(character3, 50);
+		// anim.addFrame(character2, 50);
 
 		hanim = new Animation();
 		hanim.addFrame(heliboy, 100);
@@ -94,14 +104,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		bg2 = new Background(2160, 0);
 
 		robot = new Robot();
-		
+
 		// Initialize Tiles
-        try {
-            loadMap("data/map1.txt");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+		try {
+			loadMap("data/map1.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		hb = new Heliboy(340, 360);
 		hb2 = new Heliboy(700, 360);
@@ -114,37 +124,36 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		ArrayList lines = new ArrayList();
 		int width = 0;
 		int height = 0;
-		
+
 		BufferedReader reader = new BufferedReader(new FileReader(filename));
-		while(true){
+		while (true) {
 			String line = reader.readLine();
-			//no more lines to read
-			if(line == null) {
+			// no more lines to read
+			if (line == null) {
 				reader.close();
 				break;
 			}
-			
-			if(!line.startsWith("!")) {
+
+			if (!line.startsWith("!")) {
 				lines.add(line);
 				width = Math.max(width, line.length());
 			}
 		}
 		height = lines.size();
-		
+
 		for (int j = 0; j < 12; j++) {
-            String line = (String) lines.get(j);
-            for (int i = 0; i < width; i++) {
-                System.out.println(i + "is i ");
+			String line = (String) lines.get(j);
+			for (int i = 0; i < width; i++) {
+				// System.out.println(i + "is i ");
 
-                if (i < line.length()) {
-                    char ch = line.charAt(i);
-                    Tile t = new Tile(i, j, Character.getNumericValue(ch));
-                    tilearray.add(t);
-                }
+				if (i < line.length()) {
+					char ch = line.charAt(i);
+					Tile t = new Tile(i, j, Character.getNumericValue(ch));
+					tilearray.add(t);
+				}
 
-            }
-        }
-		
+			}
+		}
 	}
 
 	@Override
@@ -159,38 +168,45 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void run() {
-		while (true) {
-			robot.update();
-			if (robot.isJumped()) {
-				currentSprite = characterJumped;
-			} else if (robot.isJumped() == false && robot.isDucked() == false) {
-				currentSprite = anim.getImage();
-			}
-
-			ArrayList projectiles = robot.getProjectiles();
-			for (int i = 0; i < projectiles.size(); i++) {
-				Projectile p = (Projectile) projectiles.get(i);
-				if (p.isVisible() == true) {
-					p.update();
-				} else {
-					projectiles.remove(i);
+		if (state == GameState.Running) {
+			while (true) {
+				robot.update();
+				if (robot.isJumped()) {
+					currentSprite = characterJumped;
+				} else if (robot.isJumped() == false
+						&& robot.isDucked() == false) {
+					currentSprite = anim.getImage();
 				}
-			}
 
-			updateTiles();
-			
-			hb.update();
-			hb2.update();
-			bg1.update();
-			bg2.update();
+				ArrayList projectiles = robot.getProjectiles();
+				for (int i = 0; i < projectiles.size(); i++) {
+					Projectile p = (Projectile) projectiles.get(i);
+					if (p.isVisible() == true) {
+						p.update();
+					} else {
+						projectiles.remove(i);
+					}
+				}
 
-			animate();
-			repaint();
+				updateTiles();
 
-			try {
-				Thread.sleep(17);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				hb.update();
+				hb2.update();
+				bg1.update();
+				bg2.update();
+
+				animate();
+				repaint();
+
+				try {
+					Thread.sleep(17);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (robot.getCenterY() > 500) {
+					state = GameState.Dead;
+				}
+
 			}
 		}
 	}
@@ -217,42 +233,59 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	@Override
 	public void paint(Graphics g) {
-		// Images are painted in the order they appear. So if you want the
-		// character to be above the background, you need to put these two lines
-		// above the line that paints the character!
-		g.drawImage(background, bg1.getBgX(), bg1.getBgY(), this);
-		g.drawImage(background, bg2.getBgX(), bg2.getBgY(), this);
-				
-		paintTiles(g);
 
-		g.drawImage(lifeHeart, 5, 5, 32, 32, this);
-		g.drawImage(lifeHeart, 37, 5, 32, 32, this);
-		g.drawImage(lifeHeart, 72, 5, 32, 32, this);
-		
-		ArrayList projectiles = robot.getProjectiles();
-		for (int i = 0; i < projectiles.size(); i++) {
-			Projectile p = (Projectile) projectiles.get(i);
-			g.setColor(Color.YELLOW);
-			g.fillRect(p.getX(), p.getY(), 10, 5);
+		if (state == GameState.Running) {
+			// Images are painted in the order they appear. So if you want the
+			// character to be above the background, you need to put these two
+			// lines
+			// above the line that paints the character!
+			g.drawImage(background, bg1.getBgX(), bg1.getBgY(), this);
+			g.drawImage(background, bg2.getBgX(), bg2.getBgY(), this);
+
+			paintTiles(g);
+
+			g.drawImage(lifeHeart, 5, 5, 32, 32, this);
+			g.drawImage(lifeHeart, 37, 5, 32, 32, this);
+			g.drawImage(lifeHeart, 72, 5, 32, 32, this);
+			g.drawImage(lifeHeart, 105, 5, 32, 32, this);
+
+			ArrayList projectiles = robot.getProjectiles();
+			for (int i = 0; i < projectiles.size(); i++) {
+				Projectile p = (Projectile) projectiles.get(i);
+				g.setColor(Color.YELLOW);
+				g.fillRect(p.getX(), p.getY(), 10, 5);
+			}
+
+			// Debug collision detection
+			// g.drawRect((int)robot.rect.getX(), (int)robot.rect.getY(),
+			// (int)robot.rect.getWidth(), (int)robot.rect.getHeight());
+			// g.drawRect((int)robot.rect2.getX(), (int)robot.rect2.getY(),
+			// (int)robot.rect2.getWidth(), (int)robot.rect2.getHeight());
+
+			// Hands
+			// g.drawRect((int)robot.rect3.getX(), (int)robot.rect3.getY(),
+			// (int)robot.rect3.getWidth(), (int)robot.rect3.getHeight());
+			// g.drawRect((int)robot.rect4.getX(), (int)robot.rect4.getY(),
+			// (int)robot.rect4.getWidth(), (int)robot.rect4.getHeight());
+
+			g.drawImage(currentSprite, robot.getCenterX() - 61,
+					robot.getCenterY(), this);
+			g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
+					hb.getCenterY() - 48, this);
+			g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
+					hb2.getCenterY() - 48, this);
+
+			g.setFont(font);
+			g.setColor(Color.WHITE);
+			g.drawString(Integer.toString(score), 740, 30);
+		} else if (state == GameState.Dead) {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, 800, 480);
+			g.setColor(Color.WHITE);
+			g.drawString("Dead", 360, 240);
 		}
-
-		//Debug collision detection
-		//g.drawRect((int)robot.rect.getX(), (int)robot.rect.getY(), (int)robot.rect.getWidth(), (int)robot.rect.getHeight());
-		//g.drawRect((int)robot.rect2.getX(), (int)robot.rect2.getY(), (int)robot.rect2.getWidth(), (int)robot.rect2.getHeight());
-		
-		//Hands
-		//g.drawRect((int)robot.rect3.getX(), (int)robot.rect3.getY(), (int)robot.rect3.getWidth(), (int)robot.rect3.getHeight());
-		//g.drawRect((int)robot.rect4.getX(), (int)robot.rect4.getY(), (int)robot.rect4.getWidth(), (int)robot.rect4.getHeight());
-			
-		
-		g.drawImage(currentSprite, robot.getCenterX() - 61,
-				robot.getCenterY(), this);
-		//g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
-				//hb.getCenterY() - 48, this);
-		//g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
-				//hb2.getCenterY() - 48, this);
 	}
-	
+
 	private void updateTiles() {
 		for (int i = 0; i < tilearray.size(); i++) {
 			Tile t = (Tile) tilearray.get(i);
@@ -276,11 +309,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_DOWN:
-			//currentSprite = characterDown;
-			//if (robot.isJumped() == false) {
-			//	robot.setDucked(true);
-			//	robot.setSpeedX(0);
-			//}
+			// currentSprite = characterDown;
+			// if (robot.isJumped() == false) {
+			// robot.setDucked(true);
+			// robot.setSpeedX(0);
+			// }
 			break;
 
 		case KeyEvent.VK_LEFT:
@@ -338,6 +371,12 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	}
 
+	GameState state = GameState.Running;
+
+	enum GameState {
+		Running, Dead
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -352,7 +391,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		return bg2;
 	}
 
-	public static Robot getRobot(){
+	public static Robot getRobot() {
 		return robot;
 	}
 }

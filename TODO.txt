@@ -1,0 +1,13 @@
+TODO:
+
+- Walking animation.
+- Start screen.
+- Health system.
+- Add background music.
+
+
+When Dead:
+1. Nullify every variable.
+2. Create a restart method that calls all the methods you need to get the game running again.
+3. Use if statements to check the state of the game to let certain keyboard buttons restart
+ the game only when the player is dead.
