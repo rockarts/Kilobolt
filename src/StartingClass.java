@@ -318,7 +318,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			 //(int)piggtailGirl.rect3.getWidth(), (int)piggtailGirl.rect3.getHeight());
 			 //g.drawRect((int)piggtailGirl.rect4.getX(), (int)piggtailGirl.rect4.getY(),
 			 //(int)piggtailGirl.rect4.getWidth(), (int)piggtailGirl.rect4.getHeight());
-
+			//System.out.println(robot.getCenterY());
 			//g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
 					//piggtailGirl.getCenterY(), this);
 			
