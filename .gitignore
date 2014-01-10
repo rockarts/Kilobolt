@@ -5,4 +5,7 @@
 .war
 .ear
 
+.classpath
+.settings/org.eclipse.jdt.core.prefs
+
 /bin
