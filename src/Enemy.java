@@ -4,7 +4,7 @@ public class Enemy {
 
 	private int power, centerX, speedX, centerY;
 	private Background bg = StartingClass.getBg1();
-	private Robot robot = StartingClass.getRobot();
+	private PiggtailGirl robot = StartingClass.getRobot();
 
 	public Rectangle r = new Rectangle(0, 0, 0, 0);
 	public int health = 5;
@@ -18,15 +18,15 @@ public class Enemy {
 		speedX = bg.getSpeedX() * 5 + movementSpeed;
 		r.setBounds(centerX - 25, centerY - 25, 50, 60);
 
-		if (r.intersects(Robot.yellowRed)) {
+		if (r.intersects(PiggtailGirl.yellowRed)) {
 			checkCollision();
 		}
 
 	}
 
 	private void checkCollision() {
-		if (r.intersects(Robot.rect) || r.intersects(Robot.rect2)
-				|| r.intersects(Robot.rect3) || r.intersects(Robot.rect4)) {
+		if (r.intersects(PiggtailGirl.rect) || r.intersects(PiggtailGirl.rect2)
+				|| r.intersects(PiggtailGirl.rect3) || r.intersects(PiggtailGirl.rect4)) {
 			System.out.println("collision");
 
 		}

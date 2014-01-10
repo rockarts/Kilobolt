@@ -16,10 +16,11 @@ import kiloboltgame.framework.Animation;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
-	private static Robot robot;
+	private static PiggtailGirl robot;
 	private Image image, currentSprite, character, character2, character3,
 			characterDown, characterJumped, background, heliboy, heliboy2,
-			heliboy3, heliboy4, heliboy5, lifeHeart;
+			heliboy3, heliboy4, heliboy5, lifeHeart, walk0, walk1, walk2, walk3,
+			walk4, walk5, walk6, walk7;
 
 	public static Image tilegrassTop, tilegrassBot, tilegrassLeft,
 			tilegrassRight, tiledirt;
@@ -28,7 +29,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	private URL base;
 	private static Background bg1, bg2;
 	public static Heliboy hb, hb2;
-	private Animation anim, hanim;
+	private Animation anim, hanim, walkingAnimation;
 
 	public static int score = 0;
 	private Font font = new Font(null, Font.BOLD, 30);
@@ -59,6 +60,15 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		character = getImage(base, "data/piggtailgirlsmall.png");
 		character2 = getImage(base, "data/piggtailgirlsmall.png");
 		character3 = getImage(base, "data/piggtailgirlsmall.png");
+		
+		walk0 = getImage(base, "data/walking/frame_000.gif");
+		walk1 = getImage(base, "data/walking/frame_001.gif");
+		walk2 = getImage(base, "data/walking/frame_002.gif");
+		walk3 = getImage(base, "data/walking/frame_003.gif");
+		walk4 = getImage(base, "data/walking/frame_004.gif");
+		walk5 = getImage(base, "data/walking/frame_005.gif");
+		walk6 = getImage(base, "data/walking/frame_006.gif");
+		walk7 = getImage(base, "data/walking/frame_007.gif");
 
 		lifeHeart = getImage(base, "data/heart.png");
 
@@ -103,7 +113,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		bg1 = new Background(0, 0);
 		bg2 = new Background(2160, 0);
 
-		robot = new Robot();
+		robot = new PiggtailGirl();
 
 		// Initialize Tiles
 		try {
@@ -244,6 +254,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 			paintTiles(g);
 
+			//TODO: Replace with list
 			g.drawImage(lifeHeart, 5, 5, 32, 32, this);
 			g.drawImage(lifeHeart, 37, 5, 32, 32, this);
 			g.drawImage(lifeHeart, 72, 5, 32, 32, this);
@@ -257,10 +268,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			}
 
 			// Debug collision detection
-			// g.drawRect((int)robot.rect.getX(), (int)robot.rect.getY(),
-			// (int)robot.rect.getWidth(), (int)robot.rect.getHeight());
-			// g.drawRect((int)robot.rect2.getX(), (int)robot.rect2.getY(),
-			// (int)robot.rect2.getWidth(), (int)robot.rect2.getHeight());
+			 g.drawRect((int)robot.rect.getX(), (int)robot.rect.getY(),
+			 (int)robot.rect.getWidth(), (int)robot.rect.getHeight());
+			 g.drawRect((int)robot.rect2.getX(), (int)robot.rect2.getY(),
+			(int)robot.rect2.getWidth(), (int)robot.rect2.getHeight());
 
 			// Hands
 			// g.drawRect((int)robot.rect3.getX(), (int)robot.rect3.getY(),
@@ -270,10 +281,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 			g.drawImage(currentSprite, robot.getCenterX() - 61,
 					robot.getCenterY(), this);
-			g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
-					hb.getCenterY() - 48, this);
-			g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
-					hb2.getCenterY() - 48, this);
+			//g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
+			//		hb.getCenterY() - 48, this);
+			//g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
+			//		hb2.getCenterY() - 48, this);
 
 			g.setFont(font);
 			g.setColor(Color.WHITE);
@@ -322,6 +333,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_RIGHT:
+			walkingAnimation = new Animation();
+			walkingAnimation.addFrame(walk0, 100);
+			walkingAnimation.addFrame(walk1, 100);
+			currentSprite = walkingAnimation.getImage();
 			robot.moveRight();
 			robot.setMovingRight(true);
 			break;
@@ -391,7 +406,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		return bg2;
 	}
 
-	public static Robot getRobot() {
+	public static PiggtailGirl getRobot() {
 		return robot;
 	}
 }

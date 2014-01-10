@@ -6,7 +6,7 @@ public class Tile {
 	public Image tileImage;
 	private Rectangle r;
 	
-	private Robot robot = StartingClass.getRobot();
+	private PiggtailGirl robot = StartingClass.getRobot();
 	private Background bg = StartingClass.getBg1();
 	
 	public Tile(int x, int y, int typeInt)	{
@@ -40,9 +40,9 @@ public class Tile {
         
         r.setBounds(tileX, tileY, 40, 40);
         
-        if (r.intersects(Robot.yellowRed) && type != 0) {
-			checkVerticalCollision(Robot.rect, Robot.rect2);
-			checkSideCollision(Robot.rect3, Robot.rect4, Robot.footleft, Robot.footright);
+        if (r.intersects(PiggtailGirl.yellowRed) && type != 0) {
+			checkVerticalCollision(PiggtailGirl.rect, PiggtailGirl.rect2);
+			checkSideCollision(PiggtailGirl.rect3, PiggtailGirl.rect4, PiggtailGirl.footleft, PiggtailGirl.footright);
 		}
     }
 	
@@ -53,7 +53,7 @@ public class Tile {
         if (rbot.intersects(r) && type == 8) {
             robot.setJumped(false);
             robot.setSpeedY(0);
-            robot.setCenterY(tileY - 63);
+            robot.setCenterY(tileY - 43);
         }
     }
 
