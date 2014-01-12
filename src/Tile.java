@@ -10,6 +10,9 @@ public class Tile {
 	private Background bg = StartingClass.getBg1();
 	
 	public Tile(int x, int y, int typeInt)	{
+		/* Each tile will have the value of 40 pixels. 
+		We will be creating Tiles using indexes, rather than pixels. 
+		This is why we multiple each index by 40 to get the pixel location.*/
 		tileX = x * 40;
         tileY = y * 40;
 

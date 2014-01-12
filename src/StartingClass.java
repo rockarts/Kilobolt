@@ -16,7 +16,7 @@ import kiloboltgame.framework.Animation;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
-	private static PiggtailGirl robot;
+	private static PiggtailGirl piggtailGirl;
 	private Image image, currentSprite, character, character2, character3,
 			characterDown, characterJumped, background, heliboy, heliboy2,
 			heliboy3, heliboy4, heliboy5, lifeHeart, walk0, walk1, walk2, walk3,
@@ -36,6 +36,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	private ArrayList<Tile> tilearray = new ArrayList<Tile>();
 
+	private ArrayList<Image> lives = new ArrayList<Image>();
+	
 	private Music music = new Music();
 
 	@Override
@@ -48,7 +50,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		Frame frame = (Frame) this.getParent().getParent();
 		frame.setTitle("PiggtailGirl");
 
-		music.startBGMusic();
+//		music.startBGMusic();
 
 		try {
 			base = getDocumentBase();
@@ -89,11 +91,31 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		tilegrassLeft = getImage(base, "data/tilegrassleft.png");
 		tilegrassRight = getImage(base, "data/tilegrassright.png");
 
+		lives.add(lifeHeart);
+		lives.add(lifeHeart);
+		lives.add(lifeHeart);
+		lives.add(lifeHeart);
+		
+		/*walkingAnimation = new Animation();
+		walkingAnimation.addFrame(walk0, 100);
+		walkingAnimation.addFrame(walk1, 100);
+		walkingAnimation.addFrame(walk2, 100);
+		walkingAnimation.addFrame(walk3, 100);
+		walkingAnimation.addFrame(walk4, 100);
+		walkingAnimation.addFrame(walk5, 100);
+		walkingAnimation.addFrame(walk6, 100);
+		walkingAnimation.addFrame(walk7, 100);
+		currentSprite = walkingAnimation.getImage();*/
+		
 		anim = new Animation();
-		anim.addFrame(character, 1250);
-		// anim.addFrame(character2, 50);
-		// anim.addFrame(character3, 50);
-		// anim.addFrame(character2, 50);
+		anim.addFrame(walk0, 100);
+		anim.addFrame(walk1, 100);
+		anim.addFrame(walk2, 100);
+		anim.addFrame(walk3, 100);
+		anim.addFrame(walk4, 100);
+		anim.addFrame(walk5, 100);
+		anim.addFrame(walk6, 100);
+		anim.addFrame(walk7, 100);
 
 		hanim = new Animation();
 		hanim.addFrame(heliboy, 100);
@@ -105,7 +127,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		hanim.addFrame(heliboy3, 100);
 		hanim.addFrame(heliboy2, 100);
 
-		currentSprite = anim.getImage();
+		//currentSprite = anim.getImage();
 	}
 
 	@Override
@@ -113,7 +135,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		bg1 = new Background(0, 0);
 		bg2 = new Background(2160, 0);
 
-		robot = new PiggtailGirl();
+		piggtailGirl = new PiggtailGirl();
 
 		// Initialize Tiles
 		try {
@@ -180,15 +202,15 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	public void run() {
 		if (state == GameState.Running) {
 			while (true) {
-				robot.update();
-				if (robot.isJumped()) {
+				piggtailGirl.update();
+				if (piggtailGirl.isJumped()) {
 					currentSprite = characterJumped;
-				} else if (robot.isJumped() == false
-						&& robot.isDucked() == false) {
+				} else if (piggtailGirl.isJumped() == false
+						&& piggtailGirl.isDucked() == false) {
 					currentSprite = anim.getImage();
 				}
 
-				ArrayList projectiles = robot.getProjectiles();
+				ArrayList projectiles = piggtailGirl.getProjectiles();
 				for (int i = 0; i < projectiles.size(); i++) {
 					Projectile p = (Projectile) projectiles.get(i);
 					if (p.isVisible() == true) {
@@ -213,7 +235,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				if (robot.getCenterY() > 500) {
+				if (piggtailGirl.getCenterY() > 500) {
 					state = GameState.Dead;
 				}
 
@@ -254,24 +276,23 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 			paintTiles(g);
 
-			//TODO: Replace with list
-			g.drawImage(lifeHeart, 5, 5, 32, 32, this);
-			g.drawImage(lifeHeart, 37, 5, 32, 32, this);
-			g.drawImage(lifeHeart, 72, 5, 32, 32, this);
-			g.drawImage(lifeHeart, 105, 5, 32, 32, this);
-
-			ArrayList projectiles = robot.getProjectiles();
+			for(int i = 0; i < lives.size(); i++) {
+				//32 is the size of hearts in pixels.
+				g.drawImage(lives.get(i), i * 32 + 5, 5, 32, 32, this);
+			}
+				
+			ArrayList projectiles = piggtailGirl.getProjectiles();
 			for (int i = 0; i < projectiles.size(); i++) {
 				Projectile p = (Projectile) projectiles.get(i);
-				g.setColor(Color.YELLOW);
+				g.setColor(Color.GRAY);
 				g.fillRect(p.getX(), p.getY(), 10, 5);
 			}
 
 			// Debug collision detection
-			 g.drawRect((int)robot.rect.getX(), (int)robot.rect.getY(),
-			 (int)robot.rect.getWidth(), (int)robot.rect.getHeight());
-			 g.drawRect((int)robot.rect2.getX(), (int)robot.rect2.getY(),
-			(int)robot.rect2.getWidth(), (int)robot.rect2.getHeight());
+			 g.drawRect((int)piggtailGirl.rect.getX(), (int)piggtailGirl.rect.getY(),
+			 (int)piggtailGirl.rect.getWidth(), (int)piggtailGirl.rect.getHeight());
+			 g.drawRect((int)piggtailGirl.rect2.getX(), (int)piggtailGirl.rect2.getY(),
+			(int)piggtailGirl.rect2.getWidth(), (int)piggtailGirl.rect2.getHeight());
 
 			// Hands
 			// g.drawRect((int)robot.rect3.getX(), (int)robot.rect3.getY(),
@@ -279,8 +300,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			// g.drawRect((int)robot.rect4.getX(), (int)robot.rect4.getY(),
 			// (int)robot.rect4.getWidth(), (int)robot.rect4.getHeight());
 
-			g.drawImage(currentSprite, robot.getCenterX() - 61,
-					robot.getCenterY(), this);
+			g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
+					piggtailGirl.getCenterY(), this);
 			//g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
 			//		hb.getCenterY() - 48, this);
 			//g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
@@ -291,6 +312,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			g.drawString(Integer.toString(score), 740, 30);
 		} else if (state == GameState.Dead) {
 			g.setColor(Color.BLACK);
+			if(lives.size() > 0) {
+				lives.remove(lives.size() - 1);
+			}
+				
 			g.fillRect(0, 0, 800, 480);
 			g.setColor(Color.WHITE);
 			g.drawString("Dead", 360, 240);
@@ -328,27 +353,23 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			break;
 
 		case KeyEvent.VK_LEFT:
-			robot.moveLeft();
-			robot.setMovingLeft(true);
+			piggtailGirl.moveLeft();
+			piggtailGirl.setMovingLeft(true);
 			break;
 
 		case KeyEvent.VK_RIGHT:
-			walkingAnimation = new Animation();
-			walkingAnimation.addFrame(walk0, 100);
-			walkingAnimation.addFrame(walk1, 100);
-			currentSprite = walkingAnimation.getImage();
-			robot.moveRight();
-			robot.setMovingRight(true);
+			piggtailGirl.moveRight();
+			piggtailGirl.setMovingRight(true);
 			break;
 
 		case KeyEvent.VK_SPACE:
-			robot.jump();
+			piggtailGirl.jump();
 			break;
 
 		case KeyEvent.VK_CONTROL:
-			if (robot.isDucked() == false && robot.isJumped() == false) {
-				robot.shoot();
-				robot.setReadyToFire(false);
+			if (piggtailGirl.isDucked() == false && piggtailGirl.isJumped() == false) {
+				piggtailGirl.shoot();
+				piggtailGirl.setReadyToFire(false);
 			}
 			break;
 
@@ -365,22 +386,22 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 		case KeyEvent.VK_DOWN:
 			currentSprite = anim.getImage();
-			robot.setDucked(false);
+			piggtailGirl.setDucked(false);
 			break;
 
 		case KeyEvent.VK_LEFT:
-			robot.stopLeft();
+			piggtailGirl.stopLeft();
 			break;
 
 		case KeyEvent.VK_RIGHT:
-			robot.stopRight();
+			piggtailGirl.stopRight();
 			break;
 
 		case KeyEvent.VK_SPACE:
 			break;
 
 		case KeyEvent.VK_CONTROL:
-			robot.setReadyToFire(true);
+			piggtailGirl.setReadyToFire(true);
 			break;
 		}
 
@@ -407,6 +428,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	}
 
 	public static PiggtailGirl getRobot() {
-		return robot;
+		return piggtailGirl;
 	}
 }

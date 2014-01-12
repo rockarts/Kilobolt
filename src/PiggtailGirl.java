@@ -52,6 +52,7 @@ public class PiggtailGirl {
 			centerX += speedX;
 		}
 
+		//The background will move at 1/5 the character's speed.
 		if (speedX > 0 && centerX > 200) {
 			bg1.setSpeedX(-MOVESPEED / 5);
 			bg2.setSpeedX(-MOVESPEED / 5);
