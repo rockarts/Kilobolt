@@ -18,7 +18,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 	private static PiggtailGirl piggtailGirl;
 	private Image image, currentSprite, character, character2, character3,
-			characterDown, characterJumped, background, heliboy, heliboy2,
+			characterDown, characterJumped, background, bacteria, heliboy2,
 			heliboy3, heliboy4, heliboy5, lifeHeart, walk0, walk1, walk2, walk3,
 			walk4, walk5, walk6, walk7;
 
@@ -28,7 +28,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 	private Graphics second;
 	private URL base;
 	private static Background bg1, bg2;
-	public static Heliboy hb, hb2;
+	public static Bacteria bact, hb2;
 	private Animation anim, hanim, walkingAnimation;
 
 	public static int score = 0;
@@ -77,11 +77,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		// characterDown = getImage(base, "data/down.png");
 		characterJumped = getImage(base, "data/piggtailgirlsmall.png");
 
-		heliboy = getImage(base, "data/heliboy.png");
-		heliboy2 = getImage(base, "data/heliboy2.png");
-		heliboy3 = getImage(base, "data/heliboy3.png");
-		heliboy4 = getImage(base, "data/heliboy4.png");
-		heliboy5 = getImage(base, "data/heliboy5.png");
+		bacteria = getImage(base, "data/GreenBacteria.png");
+		//heliboy2 = getImage(base, "data/heliboy2.png");
+		//heliboy3 = getImage(base, "data/heliboy3.png");
+		//heliboy4 = getImage(base, "data/heliboy4.png");
+		//heliboy5 = getImage(base, "data/heliboy5.png");
 
 		background = getImage(base, "data/background.png");
 
@@ -118,14 +118,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		anim.addFrame(walk7, 100);
 
 		hanim = new Animation();
-		hanim.addFrame(heliboy, 100);
-		hanim.addFrame(heliboy2, 100);
-		hanim.addFrame(heliboy3, 100);
-		hanim.addFrame(heliboy4, 100);
-		hanim.addFrame(heliboy5, 100);
-		hanim.addFrame(heliboy4, 100);
-		hanim.addFrame(heliboy3, 100);
-		hanim.addFrame(heliboy2, 100);
+		hanim.addFrame(bacteria, 100);
+		//hanim.addFrame(heliboy2, 100);
+		//hanim.addFrame(heliboy3, 100);
+		//hanim.addFrame(heliboy4, 100);
+		//hanim.addFrame(heliboy5, 100);
+		//hanim.addFrame(heliboy4, 100);
+		//hanim.addFrame(heliboy3, 100);
+		//hanim.addFrame(heliboy2, 100);
 
 		//currentSprite = anim.getImage();
 	}
@@ -145,8 +145,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			e.printStackTrace();
 		}
 
-		hb = new Heliboy(340, 360);
-		hb2 = new Heliboy(700, 360);
+		bact = new Bacteria(440, 440);
+		//hb2 = new Heliboy(700, 360);
 
 		Thread thread = new Thread(this);
 		thread.start();
@@ -222,8 +222,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 				updateTiles();
 
-				hb.update();
-				hb2.update();
+				bact.update();
+				//hb2.update();
 				bg1.update();
 				bg2.update();
 
@@ -289,12 +289,24 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			}
 
 			// Debug collision detection
-			 g.drawRect((int)piggtailGirl.rect.getX(), (int)piggtailGirl.rect.getY(),
-			 (int)piggtailGirl.rect.getWidth() - 32, (int)piggtailGirl.rect.getHeight() - 32);
+			System.out.println(String.format("Rect x %s ", (int)piggtailGirl.rect.getX() - 24));
+			/*System.out.print((int)piggtailGirl.rect.getX() - 24);
+			System.out.print(" Center x ");
+			System.out.print((int)piggtailGirl.getCenterX());
+			System.out.print(" rect width ");
+			System.out.println((int)piggtailGirl.rect.getWidth());
+			
+			System.out.print(" Rect y ");
+			System.out.print((int)piggtailGirl.rect.getY() - 24);
+			System.out.print(" Center y ");
+			System.out.println((int)piggtailGirl.getCenterY());
+			*/
+			 g.drawRect((int)piggtailGirl.rect.getX() - 24, (int)piggtailGirl.rect.getY() - 24,
+			 (int)piggtailGirl.rect.getWidth() - 24, (int)piggtailGirl.rect.getHeight());
 			 //g.drawRect((int)piggtailGirl.rect2.getX(), (int)piggtailGirl.rect2.getY(),
 			//(int)piggtailGirl.rect2.getWidth(), (int)piggtailGirl.rect2.getHeight());
 
-			 g.drawImage(currentSprite, piggtailGirl.getCenterX(),
+			 g.drawImage(currentSprite, piggtailGirl.getCenterX() - 9,
 						piggtailGirl.getCenterY(), this);
 			 
 			 //g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
@@ -309,8 +321,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			//g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
 					//piggtailGirl.getCenterY(), this);
 			
-			//g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
-			//		hb.getCenterY() - 48, this);
+			g.drawImage(hanim.getImage(), bact.getCenterX() - 48,
+					bact.getCenterY() - 48, this);
 			//g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
 			//		hb2.getCenterY() - 48, this);
 
@@ -340,6 +352,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		for (int i = 0; i < tilearray.size(); i++) {
 			Tile t = (Tile) tilearray.get(i);
 			g.drawImage(t.getTileImage(), t.getTileX(), t.getTileY(), this);
+			//Debug tiles
+			g.drawRect(t.getTileX(), t.getTileY(), 40, 40);					 
 		}
 	}
 

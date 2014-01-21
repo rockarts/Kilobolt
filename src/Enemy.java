@@ -18,7 +18,7 @@ public class Enemy {
 		speedX = bg.getSpeedX() * 5 + movementSpeed;
 		r.setBounds(centerX - 25, centerY - 25, 50, 60);
 
-		if (r.intersects(PiggtailGirl.yellowRed)) {
+		if (r.intersects(PiggtailGirl.rect)) {
 			checkCollision();
 		}
 
@@ -26,9 +26,10 @@ public class Enemy {
 
 	private void checkCollision() {
 		/*if (r.intersects(PiggtailGirl.rect) || r.intersects(PiggtailGirl.rect2)
-				|| r.intersects(PiggtailGirl.rect3) || r.intersects(PiggtailGirl.rect4)) {
+				|| r.intersects(PiggtailGirl.rect3) || r.intersects(PiggtailGirl.rect4)) */
+		if (r.intersects(PiggtailGirl.rect)){
 			System.out.println("collision");
-		}*/
+		}
 	}
 
 	public void follow() {

@@ -34,14 +34,14 @@ public class Projectile {
 	}
 
 	private void checkCollision() {
-		if (r.intersects(StartingClass.hb.r)) {
+		if (r.intersects(StartingClass.bact.r)) {
 			visible = false;
 
-			if (StartingClass.hb.health > 0) {
-				StartingClass.hb.health -= 1;
+			if (StartingClass.bact.health > 0) {
+				StartingClass.bact.health -= 1;
 			}
-			if (StartingClass.hb.health == 0) {
-				StartingClass.hb.setCenterX(-100);
+			if (StartingClass.bact.health == 0) {
+				StartingClass.bact.setCenterX(-100);
 				StartingClass.score += 5;
 
 			}

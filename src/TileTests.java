@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import java.awt.Rectangle;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +17,12 @@ public class TileTests {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		Tile tile = new Tile(0, 0, 5);
+		
+		Rectangle rleft = new Rectangle();
+		Rectangle rright = new Rectangle();
+		
+		//tile.checkSideCollision(rleft, rright, null, null);
 	}
 
 }

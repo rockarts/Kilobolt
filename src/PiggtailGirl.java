@@ -8,7 +8,7 @@ public class PiggtailGirl {
 
 	private int centerX = 1;
 	// Sprite is 48px center is about 24px. Ground is at 440px.
-	private int centerY = 416;
+	private int centerY = 398;
 
 	private boolean jumped = false;
 	private boolean movingLeft = false;
@@ -25,15 +25,15 @@ public class PiggtailGirl {
 	// Vertical
 	//Rectangle(height, width, The X coordinate of the upper-left corner, The Y coordinate of the upper-left corner);
 	public static Rectangle rect = new Rectangle(0, 0, 0, 0);
-	public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
+	//public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
 	// Hands
-	public static Rectangle rect3 = new Rectangle(0, 0, 0, 0);
-	public static Rectangle rect4 = new Rectangle(0, 0, 0, 0);
+	//public static Rectangle rect3 = new Rectangle(0, 0, 0, 0);
+	//public static Rectangle rect4 = new Rectangle(0, 0, 0, 0);
 	//
-	public static Rectangle yellowRed = new Rectangle(0, 0, 0, 0);
+	//public static Rectangle yellowRed = new Rectangle(0, 0, 0, 0);
 
-	public static Rectangle footleft = new Rectangle(0, 0, 0, 0);
-	public static Rectangle footright = new Rectangle(0, 0, 0, 0);
+	//public static Rectangle footleft = new Rectangle(0, 0, 0, 0);
+	//public static Rectangle footright = new Rectangle(0, 0, 0, 0);
 
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
@@ -75,16 +75,16 @@ public class PiggtailGirl {
 		}
 
 		//Rectangle(height, width, The X coordinate of the upper-left corner, The Y coordinate of the upper-left corner);
-		rect.setRect(centerX + 24, centerY + 24, 48, 48);
-		rect2.setRect(rect.getX(), rect.getY() + 63, 32, 32);
+		rect.setRect(centerX + 24, centerY + 18, 48, 48);
+		//rect2.setRect(rect.getX(), rect.getY() + 63, 32, 32);
 
-		rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
-		rect4.setRect(rect.getX() + 68, rect.getY() + 32, 26, 20);
+		//rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
+		//rect4.setRect(rect.getX() + 68, rect.getY() + 32, 26, 20);
 
-		yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
+		//yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
 
-		footleft.setRect(centerX - 50, centerY + 20, 50, 15);
-		footright.setRect(centerX, centerY + 20, 50, 15);
+		//footleft.setRect(centerX - 50, centerY + 20, 50, 15);
+		//footright.setRect(centerX, centerY + 20, 50, 15);
 	}
 
 	public void moveRight() {
@@ -133,7 +133,7 @@ public class PiggtailGirl {
 
 	public void shoot() {
 		if (readyToFire) {
-			Projectile p = new Projectile(centerX, centerY);
+			Projectile p = new Projectile(centerX + 24, centerY + 26);
 			projectiles.add(p);
 		}
 	}

@@ -55,11 +55,20 @@ public class Tile {
         tileX += speedX;
         
         tileContainer.setBounds(tileX, tileY, tileSize, tileSize);
+        piggtailGirl.setSpeedY(0);
         
-        if (tileContainer.intersects(PiggtailGirl.yellowRed) && type != 0) {
+        /*if(tileContainer.intersects(PiggtailGirl.rect) && type != 0) {     
+	        System.out.print(" tile x ");
+	        System.out.print(tileContainer.x);
+	        
+	        System.out.print(" tile y ");
+	        System.out.print(tileContainer.y);
+        }*/
+        
+       /* if (tileContainer.intersects(PiggtailGirl.rect) && type != 0) {
 			checkVerticalCollision(PiggtailGirl.rect, PiggtailGirl.rect2);
 			checkSideCollision(PiggtailGirl.rect3, PiggtailGirl.rect4, PiggtailGirl.footleft, PiggtailGirl.footright);
-		}
+		}*/
     }
 	
 	public void checkVerticalCollision(Rectangle rtop, Rectangle rbot) {
@@ -86,11 +95,11 @@ public class Tile {
         }
     }
 
-    public void checkSideCollision(Rectangle rleft, Rectangle rright, Rectangle leftfoot, Rectangle rightfoot) {
+    public void checkSideCollision(Rectangle rect) {//, Rectangle rright, Rectangle leftfoot, Rectangle rightfoot) {
 
     	if (type != tileDirt && type != tileGrassBot && type != 0){
-            if (rleft.intersects(tileContainer)) {
-                piggtailGirl.setCenterX(tileX + 102);
+            if (rect.intersects(tileContainer)) {
+                //piggtailGirl.setCenterX(tileX + 102);
                 piggtailGirl.setSpeedX(0);
     
             }//else if (leftfoot.intersects(r)) {
@@ -98,10 +107,10 @@ public class Tile {
             //    piggtailGirl.setSpeedX(0);
             //}
             
-            if (rright.intersects(tileContainer)) {
-                piggtailGirl.setCenterX(tileX - 62);
-                piggtailGirl.setSpeedX(0);
-            }
+          //  if (rright.intersects(tileContainer)) {
+          //      piggtailGirl.setCenterX(tileX - 62);
+          //      piggtailGirl.setSpeedX(0);
+          //  }
             
             //else if (rightfoot.intersects(r)) {
             //    piggtailGirl.setCenterX(tileX - 45);
