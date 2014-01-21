@@ -290,18 +290,25 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
 			// Debug collision detection
 			 g.drawRect((int)piggtailGirl.rect.getX(), (int)piggtailGirl.rect.getY(),
-			 (int)piggtailGirl.rect.getWidth(), (int)piggtailGirl.rect.getHeight());
-			 g.drawRect((int)piggtailGirl.rect2.getX(), (int)piggtailGirl.rect2.getY(),
-			(int)piggtailGirl.rect2.getWidth(), (int)piggtailGirl.rect2.getHeight());
+			 (int)piggtailGirl.rect.getWidth() - 32, (int)piggtailGirl.rect.getHeight() - 32);
+			 //g.drawRect((int)piggtailGirl.rect2.getX(), (int)piggtailGirl.rect2.getY(),
+			//(int)piggtailGirl.rect2.getWidth(), (int)piggtailGirl.rect2.getHeight());
 
+			 g.drawImage(currentSprite, piggtailGirl.getCenterX(),
+						piggtailGirl.getCenterY(), this);
+			 
+			 //g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
+			//			piggtailGirl.getCenterY() - 63, this);
+			 
 			// Hands
-			// g.drawRect((int)robot.rect3.getX(), (int)robot.rect3.getY(),
-			// (int)robot.rect3.getWidth(), (int)robot.rect3.getHeight());
-			// g.drawRect((int)robot.rect4.getX(), (int)robot.rect4.getY(),
-			// (int)robot.rect4.getWidth(), (int)robot.rect4.getHeight());
+			 //g.drawRect((int)piggtailGirl.rect3.getX(), (int)piggtailGirl.rect3.getY(),
+			 //(int)piggtailGirl.rect3.getWidth(), (int)piggtailGirl.rect3.getHeight());
+			 //g.drawRect((int)piggtailGirl.rect4.getX(), (int)piggtailGirl.rect4.getY(),
+			 //(int)piggtailGirl.rect4.getWidth(), (int)piggtailGirl.rect4.getHeight());
 
-			g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
-					piggtailGirl.getCenterY(), this);
+			//g.drawImage(currentSprite, piggtailGirl.getCenterX() - 61,
+					//piggtailGirl.getCenterY(), this);
+			
 			//g.drawImage(hanim.getImage(), hb.getCenterX() - 48,
 			//		hb.getCenterY() - 48, this);
 			//g.drawImage(hanim.getImage(), hb2.getCenterX() - 48,
@@ -427,7 +434,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		return bg2;
 	}
 
-	public static PiggtailGirl getRobot() {
+	public static PiggtailGirl getPiggtailGirl() {
 		return piggtailGirl;
 	}
 }

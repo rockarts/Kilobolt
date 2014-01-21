@@ -4,7 +4,7 @@ public class Enemy {
 
 	private int power, centerX, speedX, centerY;
 	private Background bg = StartingClass.getBg1();
-	private PiggtailGirl robot = StartingClass.getRobot();
+	private PiggtailGirl piggtailGirl = StartingClass.getPiggtailGirl();
 
 	public Rectangle r = new Rectangle(0, 0, 0, 0);
 	public int health = 5;
@@ -25,11 +25,10 @@ public class Enemy {
 	}
 
 	private void checkCollision() {
-		if (r.intersects(PiggtailGirl.rect) || r.intersects(PiggtailGirl.rect2)
+		/*if (r.intersects(PiggtailGirl.rect) || r.intersects(PiggtailGirl.rect2)
 				|| r.intersects(PiggtailGirl.rect3) || r.intersects(PiggtailGirl.rect4)) {
 			System.out.println("collision");
-
-		}
+		}*/
 	}
 
 	public void follow() {
@@ -38,13 +37,13 @@ public class Enemy {
 			movementSpeed = 0;
 		}
 
-		else if (Math.abs(robot.getCenterX() - centerX) < 5) {
+		else if (Math.abs(piggtailGirl.getCenterX() - centerX) < 5) {
 			movementSpeed = 0;
 		}
 
 		else {
 
-			if (robot.getCenterX() >= centerX) {
+			if (piggtailGirl.getCenterX() >= centerX) {
 				movementSpeed = 1;
 			} else {
 				movementSpeed = -1;

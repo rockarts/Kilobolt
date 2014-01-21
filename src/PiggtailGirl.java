@@ -7,8 +7,8 @@ public class PiggtailGirl {
 	final int MOVESPEED = 5;
 
 	private int centerX = 1;
-	// Sprite is 64px center is about 32px. Ground is at 440px.
-	private int centerY = 382;
+	// Sprite is 48px center is about 24px. Ground is at 440px.
+	private int centerY = 416;
 
 	private boolean jumped = false;
 	private boolean movingLeft = false;
@@ -23,6 +23,7 @@ public class PiggtailGirl {
 	private int speedY = 0;
 
 	// Vertical
+	//Rectangle(height, width, The X coordinate of the upper-left corner, The Y coordinate of the upper-left corner);
 	public static Rectangle rect = new Rectangle(0, 0, 0, 0);
 	public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
 	// Hands
@@ -73,8 +74,9 @@ public class PiggtailGirl {
 			centerX = 61;
 		}
 
-		rect.setRect(centerX - 34, centerY - 63, 68, 63);
-		rect2.setRect(rect.getX(), rect.getY() + 63, 68, 64);
+		//Rectangle(height, width, The X coordinate of the upper-left corner, The Y coordinate of the upper-left corner);
+		rect.setRect(centerX + 24, centerY + 24, 48, 48);
+		rect2.setRect(rect.getX(), rect.getY() + 63, 32, 32);
 
 		rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
 		rect4.setRect(rect.getX() + 68, rect.getY() + 32, 26, 20);
@@ -131,7 +133,7 @@ public class PiggtailGirl {
 
 	public void shoot() {
 		if (readyToFire) {
-			Projectile p = new Projectile(centerX + 50, centerY + 50);
+			Projectile p = new Projectile(centerX, centerY);
 			projectiles.add(p);
 		}
 	}
