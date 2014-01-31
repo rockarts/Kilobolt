@@ -25,7 +25,7 @@ public class PiggtailGirl {
 	// Vertical
 	//Rectangle(height, width, The X coordinate of the upper-left corner, The Y coordinate of the upper-left corner);
 	public static Rectangle rect = new Rectangle(0, 0, 0, 0);
-	//public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
+	public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
 	// Hands
 	//public static Rectangle rect3 = new Rectangle(0, 0, 0, 0);
 	//public static Rectangle rect4 = new Rectangle(0, 0, 0, 0);
@@ -74,8 +74,11 @@ public class PiggtailGirl {
 			centerX = 61;
 		}
 
-		//Rectangle(height, width, The X coordinate of the upper-left corner, The Y coordinate of the upper-left corner);
-		rect.setRect(centerX + 24, centerY + 18, 48, 48);
+		//Rectangle(The X coordinate of the upper-left corner, 
+		//The Y coordinate of the upper-left corner,
+		//width, height);
+		rect.setRect(centerX + 24, centerY + 28, 48, 30);
+		rect2.setRect(centerX + 30, centerY + 32 , 15, 10);
 		//rect2.setRect(rect.getX(), rect.getY() + 63, 32, 32);
 
 		//rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
@@ -83,7 +86,7 @@ public class PiggtailGirl {
 
 		//yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
 
-		//footleft.setRect(centerX - 50, centerY + 20, 50, 15);
+		
 		//footright.setRect(centerX, centerY + 20, 50, 15);
 	}
 

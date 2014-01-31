@@ -50,7 +50,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		Frame frame = (Frame) this.getParent().getParent();
 		frame.setTitle("PiggtailGirl");
 
-//		music.startBGMusic();
+		music.startBGMusic();
 
 		try {
 			base = getDocumentBase();
@@ -303,8 +303,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			*/
 			 g.drawRect((int)piggtailGirl.rect.getX() - 24, (int)piggtailGirl.rect.getY() - 24,
 			 (int)piggtailGirl.rect.getWidth() - 24, (int)piggtailGirl.rect.getHeight());
-			 //g.drawRect((int)piggtailGirl.rect2.getX(), (int)piggtailGirl.rect2.getY(),
-			//(int)piggtailGirl.rect2.getWidth(), (int)piggtailGirl.rect2.getHeight());
+			 
+			 g.drawRect((int)piggtailGirl.rect2.getX() -24, (int)piggtailGirl.rect2.getY(),
+			(int)piggtailGirl.rect2.getWidth(), (int)piggtailGirl.rect2.getHeight());
 
 			 g.drawImage(currentSprite, piggtailGirl.getCenterX() - 9,
 						piggtailGirl.getCenterY(), this);
@@ -353,7 +354,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			Tile t = (Tile) tilearray.get(i);
 			g.drawImage(t.getTileImage(), t.getTileX(), t.getTileY(), this);
 			//Debug tiles
-			g.drawRect(t.getTileX(), t.getTileY(), 40, 40);					 
+			//g.drawRect(t.getTileX(), t.getTileY(), 40, 40);					 
 		}
 	}
 

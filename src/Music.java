@@ -14,7 +14,7 @@ public class Music {
 		AudioData MD;
 		ContinuousAudioDataStream loop = null;
 		try{
-		BGM = new AudioStream(new FileInputStream("music.wav"));
+		BGM = new AudioStream(new FileInputStream("/Users/stevenrockarts/development/workspace/Kilobolt/src/data/music.wav"));
 		MD = BGM.getData();
 		loop = new ContinuousAudioDataStream(MD);
 		}catch(IOException error){
