@@ -30,7 +30,7 @@ public class PiggtailGirl {
 	//public static Rectangle rect3 = new Rectangle(0, 0, 0, 0);
 	//public static Rectangle rect4 = new Rectangle(0, 0, 0, 0);
 	//
-	//public static Rectangle yellowRed = new Rectangle(0, 0, 0, 0);
+	public static Rectangle yellowRed = new Rectangle(0, 0, 0, 0);
 
 	//public static Rectangle footleft = new Rectangle(0, 0, 0, 0);
 	//public static Rectangle footright = new Rectangle(0, 0, 0, 0);
@@ -84,7 +84,7 @@ public class PiggtailGirl {
 		//rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
 		//rect4.setRect(rect.getX() + 68, rect.getY() + 32, 26, 20);
 
-		//yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
+		yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
 
 		
 		//footright.setRect(centerX, centerY + 20, 50, 15);

@@ -55,7 +55,12 @@ public class Tile {
         tileX += speedX;
         
         tileContainer.setBounds(tileX, tileY, tileSize, tileSize);
-        piggtailGirl.setSpeedY(0);
+        
+        if (tileContainer.intersects(PiggtailGirl.yellowRed) && type != 0){
+            checkVerticalCollision(PiggtailGirl.rect, PiggtailGirl.rect2);
+            checkSideCollision(PiggtailGirl.rect);            
+        }
+        //piggtailGirl.setSpeedY(0);
         
         /*if(tileContainer.intersects(PiggtailGirl.rect) && type != 0) {     
 	        System.out.print(" tile x ");
@@ -74,7 +79,7 @@ public class Tile {
 	public void checkVerticalCollision(Rectangle rtop, Rectangle rbot) {
         if (rtop.intersects(tileContainer)) { 
         	System.out.println("upper collision");
-        	piggtailGirl.setSpeedY(0);
+        	//piggtailGirl.setSpeedY(0);
         }
         
         if (rbot.intersects(tileContainer) && type == tileGrassTop) {
@@ -99,7 +104,7 @@ public class Tile {
 
     	if (type != tileDirt && type != tileGrassBot && type != 0){
             if (rect.intersects(tileContainer)) {
-                //piggtailGirl.setCenterX(tileX + 102);
+            	piggtailGirl.setCenterX(tileX - 45);
                 piggtailGirl.setSpeedX(0);
     
             }//else if (leftfoot.intersects(r)) {
